@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use App\CentralLogics\Helpers;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
+use App\Model\Translation;
 use Brian2694\Toastr\Facades\Toastr;
 use Gregwar\Captcha\CaptchaBuilder;
 use Gregwar\Captcha\PhraseBuilder;
@@ -42,6 +45,18 @@ class LoginController extends Controller
     public function login()
     {
         return view('admin-views.auth.login');
+    }
+
+    public function menu()
+    {
+        $categories = DB::table('categories')->where('parent_id', 0)->where('status', 1)->get();
+        return view('admin-views.auth.menu', compact('categories'));
+    }
+
+    static function sub_categories($id)
+    {
+        $sub_cat = DB::table('categories')->where('parent_id', $id)->where('status', 1)->get();
+        return $sub_cat;
     }
 
     public function submit(Request $request)

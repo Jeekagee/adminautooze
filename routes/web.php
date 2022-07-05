@@ -24,7 +24,9 @@ Auth::routes();
 
 
 Route::get('/', function () {
-    return redirect(\route('admin.dashboard'));
+    //return redirect(\route('admin.dashboard'));
+    $categories = DB::table('categories')->where('parent_id', 0)->where('status', 1)->get();
+    return view('admin-views.auth.menu', compact('categories'));
 });
 
 Route::get('authentication-failed', function () {
