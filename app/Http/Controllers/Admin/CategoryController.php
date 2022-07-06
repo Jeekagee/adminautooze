@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Category;
 use App\Model\Translation;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -196,5 +197,28 @@ class CategoryController extends Controller
             Toastr::warning($category->parent_id == 0 ? translate('Remove subcategories first!') : translate('Sub Remove subcategories first!'));
         }
         return back();
+    }
+
+    static function sub_categories($id)
+    {
+        $sub_cat = DB::table('categories')->where('parent_id', $id)->where('status', 1)->get();
+        if($sub_cat->count() > 0)
+        {
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+
+    static function main_products($id)
+    {
+        $sub_cat = DB::table('products')->where('category_ids', 'like', '%"id":"' . $id . '","position":1%')->where('status', 1)->get();
+        return $sub_cat;
+    }
+    static function sub_products($id)
+    {
+        $sub_cat = DB::table('products')->where('category_ids', 'like', '%"id":"' . $id . '","position":2%')->where('status', 1)->get();
+        return $sub_cat;
     }
 }

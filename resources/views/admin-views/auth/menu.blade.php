@@ -33,7 +33,7 @@
 
                             <tbody>
                             <?php
-                                use App\Http\Controllers\Admin\Auth\LoginController;
+                                use App\Http\Controllers\Admin\CategoryController;
                                 $i = 1;
                             ?>
                             @foreach($categories as $category)
@@ -41,16 +41,38 @@
                                     <td colspan="3">{{$category->name}}</td>
                                 </tr>
                                 <?php 
-                                    $sub_categories = LoginController::sub_categories($category->id); 
+                                    $is_sub_cat = CategoryController::sub_categories($category->id); 
+                                    //if($is_sub_cat == 0)
+                                    //{
+                                        $sub_products = CategoryController::main_products($category->id); 
+                                        foreach($sub_products as $sub)
+                                        {
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $i; ?></td>
+                                                <td>{{$sub->name}}</td>
+                                                <td>{{ Helpers::set_symbol($sub->price) }}</td>
+                                            </tr>
+                                            <?php 
+                                            $i = $i + 1; 
+                                        }
+                                    //}
+                                    /*else
+                                    {
+                                        $sub_products = CategoryController::sub_products($category->id); 
+                                        foreach($sub_products as $sub)
+                                        {
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $i; ?></td>
+                                                <td>{{$sub->name}}</td>
+                                                <td>{{ Helpers::set_symbol($sub->price) }}</td>
+                                            </tr>
+                                            <?php 
+                                            $i = $i + 1; 
+                                        }
+                                    }*/
                                 ?>
-                                @foreach($sub_categories as $sub)
-                                    <tr>
-                                        <td><?php echo $i; ?></td>
-                                        <td>{{$sub->name}}</td>
-                                        <td>0.00</td>
-                                    </tr>
-                                    <?php $i = $i + 1; ?>
-                                @endforeach
                             @endforeach
                             </tbody>
                         </table>
