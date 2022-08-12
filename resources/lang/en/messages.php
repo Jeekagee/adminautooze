@@ -758,4 +758,6 @@
   'Privacy policy' => 'Privacy policy',
   'About us' => 'About us',
   'Map API Settings' => 'Map API Settings',
+  'Menu' => 'Menu',
+  'Menu item' => 'Menu item',
 );
