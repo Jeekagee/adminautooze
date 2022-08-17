@@ -13,7 +13,30 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  width:70%; 
+  margin-left:15%;
 }
+
+@media only screen and (max-width: 600px) {
+    .table-responsive{
+        width:90%; 
+        margin-left:10%;
+    }
+    .tablediv{
+        margin-left:20%;
+    }
+    .tdtext{
+        font-size:12px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .table-responsive{
+        width:90%; 
+        margin-left:5%;
+    }
+}
+
 </style>
 
 </head>
@@ -30,13 +53,13 @@
             <div class="col-sm-12 col-lg-12 mb-3 mb-lg-2 mt-2">
                 <div class="card">
                     <div class="card-header flex-between"></div>
-                    <div class="table-responsive" style="width:70%; margin-left:15%;" >
+                    <div class="table-responsive">
                     <div class="row">
                         <div class="col-sm-3"></div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-9 tablediv">
                         <table class="table">
                             <thead>
-                            <tr style="font-weight:bold; color:white; text-align:left;">
+                            <tr style="font-weight:bold; color:white; text-align:left;" class="tdtext">
                                 <th>{{translate('#')}}</th>
                                 <th style="width: 50%">{{translate('Menu item')}}</th>
                                 <th style="width: 20%">{{translate('Price')}}</th>
@@ -49,7 +72,7 @@
                                 $i = 1;
                             ?>
                             @foreach($categories as $category)
-                                <tr style="font-weight:bold;color:#fdffaa;">
+                                <tr style="font-weight:bold;color:#fdffaa;" class="tdtext">
                                     <td colspan="3">{{$category->name}}</td>
                                 </tr>
                                 <?php 
@@ -60,7 +83,7 @@
                                         foreach($sub_products as $sub)
                                         {
                                             ?>
-                                            <tr style="color:#cccccc;">
+                                            <tr style="color:#cccccc;" class="tdtext">
                                                 <td><?php echo $i; ?></td>
                                                 <td>{{$sub->name}}</td>
                                                 <td>{{ Helpers::set_symbol($sub->price) }}</td>
